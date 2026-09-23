@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUMCRAFT - ร้านขายลูกกอล์ฟออนไลน์</title>
+    <!-- Tailwind CSS สำหรับการจัดหน้าและธีมสีฟ้า -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font (Prompt) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-blue-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-golf-ball-tee"></i> AUMCRAFT
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="#products" class="hover:text-blue-200 transition hidden sm:inline">สินค้าทั้งหมด</a>
+                <button onclick="toggleCart()" class="relative bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-full flex items-center gap-2 transition">
+                    <i class="fa-solid fa-cart-shopping"></i> ตะกร้าสินค้า
+                    <span id="cart-count" class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16 text-center shadow-inner">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">ลูกกอล์ฟคุณภาพพรีเมียม ส่งตรงถึงมือคุณ</h1>
+            <p class="text-lg text-blue-100 mb-6">พบกับแบรนด์ดังระดับโลก Titleist, Callaway และอื่นๆ อีกมากมาย พร้อมสิทธิพิเศษและส่วนลดเพียบ!</p>
+            <a href="#products" class="bg-white text-blue-600 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-blue-50 transition">ช้อปเลย</a>
+        </div>
+    </header>
+
+    <!-- Banner สิทธิพิเศษ (Privileges Banner) -->
+    <section class="container mx-auto px-4 -mt-6 relative z-10">
+        <div class="bg-white rounded-2xl shadow-xl p-6 grid grid-cols-1 md:grid-cols-3 gap-4 border border-blue-100">
+            <div class="flex items-center gap-4 p-3 bg-blue-50/50 rounded-xl">
+                <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-900">ส่งฟรีทั่วไทย</h3>
+                    <p class="text-sm text-gray-600">เมื่อช้อปสินค้าครบ 1,500 บาทขึ้นไป</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 bg-blue-50/50 rounded-xl">
+                <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-tags"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-900">โค้ดส่วนลดพิเศษ</h3>
+                    <p class="text-sm text-gray-600">กรอก <span class="bg-blue-200 text-blue-800 font-bold px-1.5 py-0.5 rounded">GOLF100</span> ลดเพิ่ม 100 บาท</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 bg-blue-50/50 rounded-xl">
+                <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-900">สิทธิพิเศษสมาชิกใหม่</h3>
+                    <p class="text-sm text-gray-600">รับเครดิตสะสมแต้มแลกของรางวัลทุกคำสั่งซื้อ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-blue-900 mb-8 text-center" id="products">สินค้าลูกกอล์ฟทั้งหมด</h2>
+        
+        <!-- Product Grid -->
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- สินค้าจะถูกเรนเดอร์ด้วย JavaScript -->
+        </div>
+    </main>
+
+    <!-- Cart Drawer / Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex justify-end">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col p-6 overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 border-b pb-4">
+                <h3 class="text-2xl font-bold text-blue-900"><i class="fa-solid fa-cart-shopping mr-2"></i> ตะกร้าสินค้า</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
+            </div>
+
+            <div id="cart-items" class="flex-1 space-y-4 overflow-y-auto max-h-[40vh]">
+                <!-- รายการในตะกร้า -->
+                <p class="text-gray-500 text-center py-8">ไม่มีสินค้าในตะกร้า</p>
+            </div>
+
+            <!-- ส่วนกรอกโค้ดสิทธิพิเศษ / ส่วนลด -->
+            <div class="border-t pt-4 mt-2">
+                <label class="block text-sm font-semibold text-gray-700 mb-1">สิทธิพิเศษ / โค้ดส่วนลด</label>
+                <div class="flex gap-2 mb-3">
+                    <input type="text" id="coupon-code" placeholder="ลองใส่ GOLF100" class="flex-1 border rounded-lg px-3 py-1.5 text-sm uppercase focus:ring-2 focus:ring-blue-500 outline-none">
+                    <button onclick="applyCoupon()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition">ใช้โค้ด</button>
+                </div>
+                <p id="coupon-message" class="text-xs text-green-600 font-medium mb-2 hidden"></p>
+
+                <div class="space-y-1 text-sm text-gray-600 border-t pt-2">
+                    <div class="flex justify-between">
+                        <span>ราคารวมสินค้า:</span>
+                        <span id="sub-total">0.00 บาท</span>
+                    </div>
+                    <div class="flex justify-between text-green-600">
+                        <span>ส่วนลดโค้ด:</span>
+                        <span id="discount-amount">-0.00 บาท</span>
+                    </div>
+                    <div class="flex justify-between text-green-600">
+                        <span>ค่าจัดส่ง:</span>
+                        <span id="shipping-fee">ฟรี (ช้อปครบ 1,500 บาท)</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between text-lg font-bold my-3 pt-2 border-t">
+                    <span>ยอดสุทธิ:</span>
+                    <span id="cart-total" class="text-blue-600">0.00 บาท</span>
+                </div>
+                <button onclick="openCheckout()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition shadow-md">
+                    ดำเนินการชำระเงิน
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-2xl font-bold text-blue-900"><i class="fa-solid fa-credit-card mr-2"></i> ระบบชำระเงิน</h3>
+                <button onclick="closeCheckout()" class="text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
+            </div>
+            
+            <form id="checkout-form" onsubmit="processPayment(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-นามสกุล ผู้รับ</label>
+                    <input type="text" required class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="กรอกชื่อ-นามสกุล">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+                    <input type="tel" required class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0891234567">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ที่อยู่จัดส่ง</label>
+                    <textarea required rows="3" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="บ้านเลขที่, ถนน, ตำบล, อำเภอ, จังหวัด, รหัสไปรษณีย์"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">เลือกวิธีชำระเงิน (รับสิทธิ์พิเศษเพิ่ม)</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="payment" value="qr" checked class="text-blue-600">
+                            <i class="fa-solid fa-qrcode text-blue-600 text-xl"></i> QR PromptPay (ฟรีค่าจัดส่งทุกกรณี)
+                        </label>
+                        <label class="flex items-center gap-2 border p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                            <input type="radio" name="payment" value="cod" class="text-blue-600">
+                            <i class="fa-solid fa-truck text-blue-600 text-xl"></i> เก็บเงินปลายทาง (COD)
+                        </label>
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-xl flex justify-between items-center font-bold text-lg text-blue-900">
+                    <span>ยอดชำระสุทธิ:</span>
+                    <span id="checkout-total">0.00 บาท</span>
+                </div>
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold transition shadow-md">
+                    ยืนยันการสั่งซื้อ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-8 mt-12 text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-lg font-semibold mb-2">AUMCRAFT - ร้านขายลูกกอล์ฟออนไลน์ที่ดีที่สุดสำหรับคุณ</p>
+            <p class="text-sm text-blue-300">&copy; 2026 AUMCRAFT Golf Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript ระบบร้านค้าและสิทธิพิเศษ -->
+    <script>
+        const products = [
+            { id: 1, name: "Titleist Pro V1", brand: "Titleist", price: 1800, discountPrice: 1550, image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Titleist Pro V1x", brand: "Titleist", price: 1800, discountPrice: 1550, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "Callaway Chrome Soft", brand: "Callaway", price: 1650, discountPrice: 1400, image: "https://images.unsplash.com/photo-1592919505780-303950717480?auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "Callaway ERC Soft", brand: "Callaway", price: 1450, discountPrice: 1250, image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "TaylorMade TP5", brand: "TaylorMade", price: 1700, discountPrice: 1490, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "Bridgestone Tour B XS", brand: "Bridgestone", price: 1600, discountPrice: 1390, image: "https://images.unsplash.com/photo-1592919505780-303950717480?auto=format&fit=crop&w=500&q=80" },
+            { id: 7, name: "Srixon Z-Star XV", brand: "Srixon", price: 1500, discountPrice: 1290, image: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=500&q=80" },
+            { id: 8, name: "Titleist TruFeel", brand: "Titleist", price: 1100, discountPrice: 950, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        let cart = [];
+        let appliedDiscount = 0;
+        let couponUsed = false;
+
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = products.map(product => `
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col justify-between hover:shadow-xl transition border border-blue-100">
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-gray-100">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full font-medium">${product.brand}</span>
+                            <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2.5 py-1 rounded-full font-bold">ลดราคาพิเศษ</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-800 mb-1">${product.name}</h3>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-red-500 font-bold text-xl">${product.discountPrice.toLocaleString()} ฿</span>
+                                <span class="text-gray-400 line-through text-sm">${product.price.toLocaleString()} ฿</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button onclick="addToCart(${product.id})" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> เพิ่มลงตะกร้า
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCart();
+            alert(`เพิ่ม ${product.name} ลงในตะกร้าแล้ว`);
+        }
+
+        function applyCoupon() {
+            const codeInput = document.getElementById('coupon-code').value.trim().toUpperCase();
+            const messageEl = document.getElementById('coupon-message');
+
+            if (couponUsed) {
+                alert('คุณใช้โค้ดส่วนลดไปแล้วในคำสั่งซื้อนี้');
+                return;
+            }
+
+            if (codeInput === 'GOLF100') {
+                appliedDiscount = 100;
+                couponUsed = true;
+                messageEl.textContent = '🎉 ใช้โค้ดสำเร็จ! ลดเพิ่ม 100 บาท';
+                messageEl.classList.remove('hidden');
+                updateCart();
+            } else {
+                alert('โค้ดส่วนลดไม่ถูกต้อง (ลองใช้โค้ด: GOLF100)');
+            }
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const subTotalEl = document.getElementById('sub-total');
+            const discountAmountEl = document.getElementById('discount-amount');
+            const shippingFeeEl = document.getElementById('shipping-fee');
+            const cartTotal = document.getElementById('cart-total');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalCount;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `<p class="text-gray-500 text-center py-8">ไม่มีสินค้าในตะกร้า</p>`;
+                subTotalEl.textContent = `0.00 บาท`;
+                discountAmountEl.textContent = `-0.00 บาท`;
+                shippingFeeEl.textContent = `ฟรี (ช้อปครบ 1,500 บาท)`;
+                cartTotal.textContent = `0.00 บาท`;
+                couponUsed = false;
+                appliedDiscount = 0;
+                document.getElementById('coupon-message').classList.add('hidden');
+                return;
+            }
+
+            let subtotal = 0;
+            cartItems.innerHTML = cart.map(item => {
+                const itemTotal = item.discountPrice * item.quantity;
+                subtotal += itemTotal;
+                return `
+                    <div class="flex justify-between items-center bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">${item.name}</h4>
+                            <p class="text-xs text-blue-600">${item.discountPrice.toLocaleString()} ฿ x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-gray-700 text-sm">${itemTotal.toLocaleString()} ฿</span>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // เงื่อนไขค่าส่งฟรี (ยอดเกิน 1,500 บาท ส่งฟรี)
+            let shipping = subtotal >= 1500 ? 0 : 50;
+            if (shipping === 0) {
+                shippingFeeEl.textContent = `ฟรี (ได้รับสิทธิพิเศษส่งฟรี)`;
+            } else {
+                shippingFeeEl.textContent = `50 บาท (ซื้อเพิ่มอีก ${(1500 - subtotal).toLocaleString()} ฿ เพื่อส่งฟรี)`;
+            }
+
+            let finalTotal = subtotal - appliedDiscount + shipping;
+            if (finalTotal < 0) finalTotal = 0;
+
+            subTotalEl.textContent = `${subtotal.toLocaleString()} บาท`;
+            discountAmountEl.textContent = `-${appliedDiscount.toLocaleString()} บาท`;
+            cartTotal.textContent = `${finalTotal.toLocaleString()} บาท`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                alert('กรุณาเลือกสินค้าใส่ตะกร้าก่อนชำระเงิน');
+                return;
+            }
+            toggleCart();
+            const checkoutModal = document.getElementById('checkout-modal');
+            const checkoutTotal = document.getElementById('checkout-total');
+            checkoutTotal.textContent = document.getElementById('cart-total').textContent;
+            checkoutModal.classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            const checkoutModal = document.getElementById('checkout-modal');
+            checkoutModal.classList.add('hidden');
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            alert('🎉 สั่งซื้อสินค้าสำเร็จ! ขอบคุณที่อุดหนุน AUMCRAFT พร้อมรับสิทธิพิเศษสมาชิกเรียบร้อยแล้วครับ');
+            cart = [];
+            appliedDiscount = 0;
+            couponUsed = false;
+            updateCart();
+            closeCheckout();
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
